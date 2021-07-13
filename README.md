@@ -19,7 +19,7 @@ Ejecutar el script en los nodos administrados
 Modificar el fichero 'inventario' para añadir los nodos disponibles
 
 ejemplo:
-`
+```
 [master]
 k8s_master ansible_host=192.168.205.212
 
@@ -27,4 +27,4 @@ k8s_master ansible_host=192.168.205.212
 k8s_slave1 ansible_host=192.168.205.211
 k8s_slave2 ansible_host=192.168.205.212
 
-`
+```
