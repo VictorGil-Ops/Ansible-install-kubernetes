@@ -11,5 +11,5 @@ Copiar la clave pública en el script ubicado en preparara_nodos_administrados
 
 `preparar_nodos_administrados\preparar_nodos.sh`
 
-Ejecutar el script en los nodos administrador
+Ejecutar el script en los nodos administrados
 
