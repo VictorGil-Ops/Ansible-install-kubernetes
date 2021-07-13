@@ -28,3 +28,13 @@ k8s_slave1 ansible_host=192.168.205.211
 k8s_slave2 ansible_host=192.168.205.212
 
 ```
+
+Ejecutar el primer playbook
+
+`ansible-playbook all_roles.yaml -vv`
+
+Ejecutar el segundo playbook
+
+`ansible-playbook master_roles.yaml -vv`
+
+
