@@ -1,0 +1,10 @@
+[master]
+k8s_master ansible_host=192.168.205.212
+
+[slaves]
+k8s_slave1 ansible_host=192.168.205.211
+k8s_slave2 ansible_host=192.168.205.212
+
+[k8s_service:children]
+master
+slaves
