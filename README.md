@@ -36,5 +36,3 @@ Ejecutar el primer playbook
 Ejecutar el segundo playbook
 
 `ansible-playbook master_roles.yaml -vv`
-
-
