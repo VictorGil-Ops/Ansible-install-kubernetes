@@ -9,12 +9,6 @@
       regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
       replace: '# \1'
 
-  - name: enable user ansible passwordless sudoers
-    lineinfile:
-      dest: /etc/sudoers
-      line: 'ansible ALL=(ALL) NOPASSWD: ALL'
-      validate: 'visudo -cf %s'
-
   - name: disable SELinux
     command: setenforce 0
 

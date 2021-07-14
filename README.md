@@ -3,6 +3,8 @@ Este repositorio contiene un playbook que facilita la instalación de Kubernetes
 
 # Preparar los nodos a gestionar
 
+Como ROOT>>
+
 Generar clave ssh en el nodo de control se creará en ~/.ssh/id_rsa.pub
 
 `ssh-keygen -t rsa`
