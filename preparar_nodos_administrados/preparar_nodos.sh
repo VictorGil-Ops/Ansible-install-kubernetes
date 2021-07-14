@@ -13,3 +13,7 @@ chmod 700 /home/$ANS_USR/.ssh
 echo $PUB_KEY > /home/$ANS_USR/.ssh/authorized_keys
 chmod 600 /home/$ANS_USR/.ssh/authorized_keys
 chown -R $ANS_USR:$ANS_USR /home/$ANS_USR/.ssh
+
+# añadir ansible a sudoers
+echo 'ansible ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+visudo -cf /etc/sudoers
