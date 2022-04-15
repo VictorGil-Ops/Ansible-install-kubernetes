@@ -26,37 +26,12 @@
     when: hostvars[item].ansible_host is defined
     with_items: "{{ groups.all }}"
 
-  - name: Remove docker if installed from CentOS repo
-    yum:
-      name:
-        - docker
-        - docker-client
-        - docker-client-latest
-        - docker-common
-        - docker-latest
-        - docker-latest-logrotate
-        - docker-logrotate
-        - docker-engine
-      state: removed
-  
-  - name: Add Docker repo
-    get_url:
-        url: https://download.docker.com/linux/centos/docker-ce.repo
-        dest: /etc/yum.repos.d/docer-ce.repo
-    become: yes
-
-  - name: Install Docker
-    package:
-        name: docker-ce
-        state: latest
-    become: yes
-
-  - name: Start Docker service
-    service:
-        name: docker
-        state: started
-        enabled: yes
-    become: yes
+  - name: Installing firewalld
+    shell: |
+     yum install firewalld -y
+     yum install -y yum-utils device-mapper-persistent-data lvm2
+     yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+     yum install docker-ce -y --nobest
 
   - name: add Kubernetes' YUM repository
     yum_repository:
@@ -87,12 +62,6 @@
       name: kubelet
       daemon_reload: yes
       state: restarted
-
-  - name: Installing firewalld
-    shell: |
-     yum install firewalld -y
-     yum install -y yum-utils device-mapper-persistent-data lvm2
-     yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
   - name: Installing required packages
     yum:
