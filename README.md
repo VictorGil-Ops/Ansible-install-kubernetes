@@ -1,7 +1,7 @@
-# ansible-instalar-kubeadm-centos-8
+# ansible-instalar-kubernetes-centos8
 Este repositorio contiene un playbook que facilita la instalación de Kubernetes en un cluster de servidores con Centos 8
 
-# Preparar los nodos a gestionar
+## Preparar los nodos a gestionar
 
 Como ROOT>>
 
@@ -16,7 +16,7 @@ Copiar la clave pública en el script ubicado en preparara_nodos_administrados
 Ejecutar el script en los nodos administrados
 
 
-# Ejecutar playbooks instalación Kubernetes
+## Ejecutar playbooks instalación Kubernetes
 
 Modificar el fichero 'inventario' para añadir los nodos disponibles
 
@@ -31,10 +31,10 @@ worker-node2 ansible_host=192.168.205.212
 
 ```
 
-Ejecutar el primer playbook
+- Ejecutar el primer playbook
 
 `ansible-playbook all_roles.yaml -vv`
 
-Ejecutar el segundo playbook
+- Ejecutar el segundo playbook
 
 `ansible-playbook master_roles.yaml -vv`
