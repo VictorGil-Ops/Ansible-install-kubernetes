@@ -22,12 +22,12 @@ Modificar el fichero 'inventario' para añadir los nodos disponibles
 
 ejemplo:
 ```
-[master]
-k8s_master ansible_host=192.168.205.212
+[master-node]
+master-node ansible_host=192.168.205.212
 
-[slaves]
-k8s_slave1 ansible_host=192.168.205.211
-k8s_slave2 ansible_host=192.168.205.212
+[worker-nodes]
+worker-node1 ansible_host=192.168.205.211
+worker-node2 ansible_host=192.168.205.212
 
 ```
 
