@@ -1,9 +1,9 @@
-# variables
+# vars
 ANS_USR='ansible'
-PUB_KEY=' PEGAR CLAVE PÚBLICA AQUÍ'
+PUB_KEY='<PASTE PUBLIC-KEY>'
 
 # Crea usaurio local ansible (necesita password para que la conexión SSH entrante funcione incluso si está basada en claves)
-echo "Creando a usuario ansible"
+echo "Creating ansible user"
 useradd -p $(openssl rand -base64 14) -b /home/ -m $ANS_USR
 
 # Autorizar clave pública
