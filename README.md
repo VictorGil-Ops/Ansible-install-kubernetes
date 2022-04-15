@@ -1,5 +1,5 @@
 # ansible-instalar-kubernetes-centos8
-Este repositorio contiene un playbook que facilita la instalación de Kubernetes en un cluster de servidores con Centos 8
+Este repositorio contiene un playbook que facilita la instalación de Kubernetes en un cluster de servidores con Centos8.
 
 ## Preparar los nodos a gestionar
 
