@@ -1,5 +1,5 @@
 ---
-- hosts: worker_nodes
+- hosts: worker
   become: yes
   vars_files:
   - vars

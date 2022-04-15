@@ -1,3 +1,0 @@
-﻿---
-- import_playbook: settings_all_nodes.yml
-- import_playbook: roles/master/config_worker_role.yml
