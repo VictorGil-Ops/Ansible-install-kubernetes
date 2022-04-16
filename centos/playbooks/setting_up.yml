@@ -1,0 +1,57 @@
+﻿- hosts: master
+  become: yes
+  vars_files:
+  - env_vars
+  tasks:
+  - name: "Configuring docker-ce repo"
+    get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    mode: 0644
+  - name: " Installing Docker latest version"
+    yum:
+      name: docker-ce
+      state: present
+  - name: " Starting and Enabling Docker service"
+    service:
+      name: docker
+      state: started
+      enabled: yes
+
+  - name: Creating kubernetes repository
+    file:
+     path: /etc/yum.repos.d/kubernetes.repo
+     state: touch
+  - name: Adding repository details in Kubernetes repo file.
+    blockinfile:
+     path: /etc/yum.repos.d/kubernetes.repo
+     block: |
+      [kubernetes]
+      name=Kubernetes
+      baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  - name: Installing kubeadm
+    yum:
+      name: kubeadm
+      state: present
+    
+  - name: Creating daemon.json
+    blockinfile:
+     path: /etc/docker/daemon.json
+     block: |
+      {
+       "exec-opts": ["native.cgroupdriver=systemd"]
+      }
+  
+  - name: sytemctl restart and reload
+    shell: |
+      systemctl daemon-reload
+      systemctl restart docker
+      systemctl enable kubelet
+      systemctl start kubelet
+
+    
