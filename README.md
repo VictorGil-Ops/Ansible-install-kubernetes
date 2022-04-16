@@ -33,6 +33,7 @@ sudo passwd ansible
 su - ansible
 mkdir .ssh && cd .ssh
 ssh-keygen -t rsa
+cat id.rsa.pub ## paste inside ssh_prepare_node.sh << PASTE PUBLIC_KEY
 
 ```
 
