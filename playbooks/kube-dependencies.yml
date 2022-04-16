@@ -1,6 +1,15 @@
 ﻿- hosts: all
   become: yes
   tasks:
+   - name: Copy script mirrors.sh
+     copy:
+     src: scripts/mirrors.sh 
+     dest: /tmp/mirrors.sh
+     mode: 0755
+
+   - name: Run script mirrors.sh 
+     command: sh /tmp/mirrors.sh 
+
    - name: install Docker
      yum:
        name: docker
