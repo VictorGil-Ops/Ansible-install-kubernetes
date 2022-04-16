@@ -1,26 +1,35 @@
-# ansible-instalar-kubernetes-centos8
+# ansible-install-kubernetes-centos8
 
-Este repositorio contiene un playbook que facilita la instalación de Kubernetes en un cluster de servidores con Centos8.
+This repository contain a playbook for a easy installation kubernetes cluster with Centos 8.
 
-## Preparar los nodos a gestionar
+## Preparare Ansible Control Node
 
-Como ROOT>>
+I use WSL or MSYS2.
 
-Generar clave ssh en el nodo de control se creará en ~/.ssh/id_rsa.pub
+1. Create ansible user
+
+    sudo adduser ansible
+    sudo passwd ansible
+
+2. Generate ssh key
+
+> ~/.ssh/id_rsa.pub
 
 `ssh-keygen -t rsa`
 
-Copiar la clave pública en el script ubicado en preparara_nodos_administrados
+3. Copy the public key in:
 
-`preparar_nodos_administrados\preparar_nodos.sh`
+`ssh_prepare_remote_nodes\ssh_prepare_node.sh` << PASTE PUBLIC_KEY
 
-Ejecutar el script en los nodos administrados
+4. Execute the script on kubernetes cluster
 
-## Ejecutar playbooks instalación Kubernetes
+This script create a ansible user and add the ssh key.
 
-Modificar el fichero 'inventario' para añadir los nodos disponibles
+## Ansible playbook
 
-ejemplo:
+1. Check and modify the file 'inventory' and add your ip nodes
+
+> example:
 
 ```bash
 
@@ -33,10 +42,6 @@ worker-node2 ansible_host=192.168.205.212
 
 ```
 
-- Ejecutar el primer playbook
+2. Run a playbook
 
-`ansible-playbook all_roles.yaml -vv`
-
-- Ejecutar el segundo playbook
-
-`ansible-playbook master_roles.yaml -vv`
+`ansible-playbook setup-nodes.yml -v`
