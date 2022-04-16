@@ -26,8 +26,14 @@
     when: hostvars[item].ansible_host is defined
     with_items: "{{ groups.all }}"
 
+  - name: Add Docker repo
+    get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docer-ce.repo
+    become: yes
+
   - name: Installing firewalld
-    shell: |
+    shell:
      yum install firewalld -y
      yum install -y yum-utils device-mapper-persistent-data lvm2
      yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -52,11 +58,6 @@
       name: kubeadm-1.20.0
       state: present
 
-  - name: Configure node ip
-    lineinfile:
-      path: /etc/default/kubelet
-      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
-
   - name: Restart kubelet
     service:
       name: kubelet
@@ -67,6 +68,12 @@
     yum:
      name: "{{ packages }}"
      state: present
+
+  - name: Update services
+    yum:
+     name: "{{ services }}"
+     state: latest
+     update_only: yes
 
   - name: Starting and Enabling the required services
     service:
