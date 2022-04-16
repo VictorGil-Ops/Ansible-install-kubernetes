@@ -15,6 +15,9 @@
     command: sh /tmp/mirrors.sh 
 
   - name: Upgrade RHEL Family OS packages
+    debug:
+    var: result
+    verbosity: 2
     yum:
       name: '*'
       state: latest
