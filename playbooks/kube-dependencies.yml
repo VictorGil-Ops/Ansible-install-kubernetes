@@ -22,8 +22,8 @@
     when: ansible_os_family == "RedHat"
 
   - debug:
-    register: result
-    verbosity: 3
+     register: result
+     verbosity: 3
 
   - name: Remove swapfile from /etc/fstab
     mount:
