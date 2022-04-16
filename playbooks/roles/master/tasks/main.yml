@@ -1,4 +1,7 @@
 ---
+ - name: Reset kubelet
+   shell: "kubeadm reset"
+
  - name: initialize the cluster
    shell: kubeadm init --pod-network-cidr={{cidr_v}} >> cluster_initialized.txt
    args:
