@@ -1,0 +1,46 @@
+---
+ - name: initialize the cluster
+   shell: kubeadm init --pod-network-cidr={{cidr_v}} >> cluster_initialized.txt
+   args:
+     chdir: $HOME
+     creates: cluster_initialized.txt
+
+ - name: create .kube directory
+   become: yes
+   become_user: ansible 
+   file:
+     path: $HOME/.kube
+     state: directory
+     mode: 0760
+
+ - name: copy admin.conf to user's kube config
+   copy:
+     src: /etc/kubernetes/admin.conf
+     dest: $HOME/.kube/config
+     remote_src: yes
+     owner: ansible
+
+ - name: install Pod network
+   become: yes
+   become_user: ansible
+   shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml >> pod_network_setup.txt
+   args:
+     chdir: $HOME
+     creates: pod_network_setup.txt
+
+ - name: Copy script delete_token.sh
+   copy:
+     src: delete_token.sh 
+     dest: /tmp/delete_token.sh
+     mode: 0755
+
+ - name: Run script delete_token.sh
+   command: sh /tmp/delete_token.sh
+
+ - name: get join command
+   shell: kubeadm token create --print-join-command
+   register: join_command_raw
+
+ - name: set join command
+   set_fact:
+     join_command: "{{ join_command_raw.stdout_lines[0] }}"

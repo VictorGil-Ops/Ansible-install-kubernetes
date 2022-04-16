@@ -1,0 +1,7 @@
+---
+- hosts: workers
+  become: yes
+  vars_files:
+  - vars
+  roles:
+       - workers
