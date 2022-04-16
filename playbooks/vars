@@ -1,4 +1,4 @@
-﻿ad_addr: 
+﻿ad_addr: 192.168.205.210
 cidr_v: 10.244.0.0/16
 
 packages:
