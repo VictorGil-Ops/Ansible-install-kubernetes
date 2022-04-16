@@ -1,7 +1,5 @@
 ---
 - hosts: master
   become: yes
-  vars_files:
-   - vars
   roles:
        - master

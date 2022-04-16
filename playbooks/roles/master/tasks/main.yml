@@ -1,9 +1,4 @@
 ---
-- hosts: master
-  become: yes
-  vars_files:
-  - vars
-
 - name: initialize the cluster
   shell: kubeadm init --pod-network-cidr={{cidr_v}} >> cluster_initialized.txt
   debugger: on_failed
