@@ -62,6 +62,7 @@
   - name: Remove docker if installed from CentOS repo
     yum:
       name:
+        - podman
         - docker
         - docker-client
         - docker-client-latest
