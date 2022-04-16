@@ -14,18 +14,6 @@
   - name: Run script mirrors.sh 
     command: sh /tmp/mirrors.sh 
 
-  - name: Upgrade RHEL Family OS packages
-    yum:
-      name: '*'
-      state: latest
-    register: result
-    when: ansible_os_family == "RedHat"
-  
-  - name: debug
-    debug:
-     var: result
-     verbosity: 3
-
   - name: Remove swapfile from /etc/fstab
     mount:
       name: "{{ item }}"
@@ -47,18 +35,47 @@
       state: present
     when: hostvars[item].ansible_host is defined
     with_items: "{{ groups.all }}"
-
+  
   - name: Add Docker repo
     get_url:
         url: https://download.docker.com/linux/centos/docker-ce.repo
         dest: /etc/yum.repos.d/docer-ce.repo
     become: yes
-  
-  - name: Creating a repository file for Kubernetes
+  - name: Remove docker if installed from CentOS repo
+    yum:
+      name:
+        - podman
+        - container-tools
+        - containerd
+        - containers-common
+        - docker
+        - docker-client
+        - docker-client-latest
+        - docker-common
+        - docker-latest
+        - docker-latest-logrotate
+        - docker-logrotate
+        - docker-engine
+      state: removed
+  - name: Install Docker
+    ansible.builtin.yum:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: true
+  - name: Start docker
+    service:
+      name: docker
+      enabled: yes
+      state: started
+    become: true
+
+  - name: Creating kubernetes repository
     file:
      path: /etc/yum.repos.d/kubernetes.repo
      state: touch
-
   - name: Adding repository details in Kubernetes repo file.
     blockinfile:
      path: /etc/yum.repos.d/kubernetes.repo
@@ -71,51 +88,33 @@
       repo_gpgcheck=1
       gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
         https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
- 
-  - name: Remove docker if installed from CentOS repo
+  - name: Installing kubeadm
     yum:
-      name:
-        - podman
-        - container-tools
-        - docker
-        - docker-client
-        - docker-client-latest
-        - docker-common
-        - docker-latest
-        - docker-latest-logrotate
-        - docker-logrotate
-        - docker-engine
-        - kubeadm
-        - kubelet
-      state: removed
-  
-  - name: Install Docker
-    ansible.builtin.yum:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-        state: latest
-        update_cache: true
- 
-  - name: Restart docker
-    service:
-      name: docker
-      daemon_reload: yes
-      enabled: yes
-      state: restarted 
+      name: kubeadm
+      state: present
 
-  - name: Install kubernetes packages
-    yum:
-     name: [kubelet,kubeadm,kubectl]
-     disable_excludes: kubernetes
+  - name: Creating daemon
+    file:
+     path: /etc/docker/daemon.json
+     state: touch
 
-  - name: Enable kubelet service
-    ansible.builtin.service:
-     name: kubelet
-     enabled: yes
-     state: restarted
-  
+  - name: Adding daemon.json
+    blockinfile:
+     path: /etc/docker/daemon.json
+     marker: " "
+     block: |
+      {
+       "exec-opts": ["native.cgroupdriver=systemd"]
+      }
+
+  - name: sytemctl restart and reload
+    shell: |
+      systemctl daemon-reload
+      systemctl restart docker
+      systemctl enable kubelet
+      systemctl start kubelet  
+
+
   - name: Restart firewalld
     service:
       name: firewalld
