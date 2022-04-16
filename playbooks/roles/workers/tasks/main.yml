@@ -1,6 +1,6 @@
 ---
  - name: join cluster
-   shell: "{{ hostvars['master-node'].join_command_raw }} >> node_joined.txt"
+   shell: "{{ hostvars[item]['master-node'].join_command_raw }} >> node_joined.txt"
    args:
       chdir: $HOME
       creates: node_joined.txt
