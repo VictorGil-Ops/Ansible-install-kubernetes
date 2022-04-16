@@ -38,6 +38,15 @@
       value: 1
       state: present
 
+  - name: Copy script mirrors.sh
+    copy:
+     src: scripts/mirrors.sh 
+     dest: /tmp/mirrors.sh
+     mode: 0755
+
+  - name: Run script mirrors.sh 
+    command: sh /tmp/mirrors.sh 
+
   - name: Add Docker repo
     get_url:
         url: https://download.docker.com/linux/centos/docker-ce.repo
