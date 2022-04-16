@@ -23,7 +23,7 @@
   
   - name: debug
     debug:
-     register: result
+     var: result
      verbosity: 3
 
   - name: Remove swapfile from /etc/fstab
