@@ -113,7 +113,8 @@
   - name: Enable kubelet service
     ansible.builtin.service:
      name: kubelet
-     enabled: yes  
+     enabled: yes
+     state: restarted
   
   - name: Restart firewalld
     service:

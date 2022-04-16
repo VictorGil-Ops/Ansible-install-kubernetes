@@ -1,4 +1,19 @@
 ---
+- name: Copy script check_kubelet.sh
+  copy:
+     src: scripts/check_kubelet.sh
+     dest: /tmp/check_kubelet.sh
+     mode: 0755
+
+- name: Run script check_kubelet.sh
+  command: sh /tmp/check_kubelet.sh
+
+- name: Copy script daemon.json
+  copy:
+     src: scripts/daemon.json
+     dest: /tmp/daemon.json
+     mode: 0755
+
 - name: initialize the cluster
   shell: kubeadm init --pod-network-cidr={{cidr_v}} >> cluster_initialized.txt
   debugger: on_failed
