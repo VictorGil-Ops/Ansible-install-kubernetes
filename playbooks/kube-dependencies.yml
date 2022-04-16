@@ -93,6 +93,11 @@
       name: kubeadm
       state: present
 
+  - name: Remove file 
+    ansible.builtin.file:
+     path: /etc/docker/daemon.json
+     state: absent
+
   - name: Creating daemon
     file:
      path: /etc/docker/daemon.json

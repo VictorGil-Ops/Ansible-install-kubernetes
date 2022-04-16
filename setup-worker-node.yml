@@ -1,2 +1,2 @@
 ﻿---
-- import_playbook: playbooks/config_worker_role.yml
+- import_playbook: playbooks/enroll_worker
