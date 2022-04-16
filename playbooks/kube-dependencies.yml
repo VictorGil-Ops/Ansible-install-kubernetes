@@ -20,8 +20,9 @@
       state: latest
     register: result
     when: ansible_os_family == "RedHat"
-
-  - debug:
+  
+  - name: debug
+    debug:
      register: result
      verbosity: 3
 
