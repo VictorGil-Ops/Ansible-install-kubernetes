@@ -11,10 +11,6 @@
      chdir: $HOME
      creates: cluster_initialized.txt
 
-  - name: Storing Logs and Generated token for future purpose.
-    local_action: copy content={{ output.stdout }} dest={{ token_file }}
-    become: False
-
   - name: create .kube directory
     become: yes
     become_user: root
@@ -32,7 +28,7 @@
 
   - name: create token
     shell: kubeadm token create --print-join-command
-    register: join_command_raw
+    register: join_command
 
   - name: create pod network
     shell: |
