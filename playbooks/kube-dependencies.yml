@@ -90,25 +90,36 @@
           - containerd.io
         state: latest
         update_cache: true
-
-  - name: Installing required packages
-    yum:
-     name: "{{ packages }}"
-     state: latest
-
-  - name: Restart kubelet
-    service:
-      name: kubelet
-      daemon_reload: yes
-      enabled: yes
-      state: restarted
-  
+ 
   - name: Restart docker
     service:
       name: docker
       daemon_reload: yes
       enabled: yes
-      state: restarted
+      state: restarted 
+  
+  - name: Adding repository details in Kubernetes repo file.
+    blockinfile:
+     path: /etc/yum.repos.d/kubernetes.repo
+     block: |
+      [kubernetes]
+      name=Kubernetes
+      baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+  - name: Install kubernetes packages
+    yum:
+     name: [kubelet,kubeadm,kubectl]
+     disable_excludes: kubernetes
+
+  - name: Enable kubelet service
+    ansible.builtin.service:
+     name: kubelet
+     enabled: yes  
   
   - name: Restart firewalld
     service:

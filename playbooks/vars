@@ -26,4 +26,4 @@ worker_ports:
 - "30000-32767/tcp"
 
 
-token_file: join-command
+token_file: join_command
