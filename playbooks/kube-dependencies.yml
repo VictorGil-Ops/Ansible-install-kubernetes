@@ -63,6 +63,7 @@
     yum:
       name:
         - podman
+        - container-tools
         - docker
         - docker-client
         - docker-client-latest
