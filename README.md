@@ -8,18 +8,26 @@ I use WSL or MSYS2.
 
 1. Create ansible user
 
+```bash
     sudo adduser ansible
     sudo passwd ansible
+```
 
 2. Generate ssh key
 
-> ~/.ssh/id_rsa.pub
+> path "~/.ssh/id_rsa.pub"
 
-`ssh-keygen -t rsa`
+```bash
+
+    ssh-keygen -t rsa`
+
+```
 
 3. Copy the public key in:
 
-`ssh_prepare_remote_nodes\ssh_prepare_node.sh` << PASTE PUBLIC_KEY
+> path:
+
+ssh_prepare_remote_nodes\ssh_prepare_node.sh << PASTE PUBLIC_KEY
 
 4. Execute the script on kubernetes cluster
 
@@ -44,4 +52,8 @@ worker-node2 ansible_host=192.168.205.212
 
 2. Run a playbook
 
-`ansible-playbook setup-nodes.yml -v`
+```bash
+
+    ansible-playbook setup-nodes.yml -v
+
+```
