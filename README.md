@@ -9,25 +9,22 @@ I use WSL or MSYS2.
 1. Create ansible user
 
 ```bash
-    sudo adduser ansible
-    sudo passwd ansible
+
+sudo adduser ansible
+sudo passwd ansible
+
 ```
 
-2. Generate ssh key
-
-> path "~/.ssh/id_rsa.pub"
+2. Generate ssh key, path "~/.ssh/id_rsa.pub"
 
 ```bash
 
-    ssh-keygen -t rsa`
+ssh-keygen -t rsa`
 
 ```
 
-3. Copy the public key in:
+3. Copy the public key in ssh_prepare_remote_nodes\ssh_prepare_node.sh << PASTE PUBLIC_KEY
 
-> path:
-
-ssh_prepare_remote_nodes\ssh_prepare_node.sh << PASTE PUBLIC_KEY
 
 4. Execute the script on kubernetes cluster
 
