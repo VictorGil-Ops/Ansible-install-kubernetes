@@ -3,11 +3,5 @@
   become: yes
   vars_files:
    - vars_file
-  tasks:
-    - name: Copying token to worker nodes
-      copy: src=join_command =join_command
-
-    - name: Joining worker nodes with kubernetes master
-      shell: |
-        kubeadm reset -f
-        cat join_command | tail -2 > out.sh
+  roles:
+   - workers

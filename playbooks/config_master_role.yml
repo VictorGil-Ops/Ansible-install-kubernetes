@@ -3,30 +3,5 @@
   become: yes
   vars_files:
     - vars_file
-  tasks:
-  - name: initialize the cluster
-    shell: kubeadm init --pod-network-cidr={{cidr_v}} >> cluster_initialized.txt
-    debugger: on_failed
-    args:
-     chdir: $HOME
-     creates: cluster_initialized.txt
-
-  - name: create .kube directory
-    become: yes
-    become_user: root
-    file:
-      path: $HOME/.kube
-      state: directory
-      mode: 0755
-
-  - name: copy admin.conf to user's kube config
-    copy:
-      src: /etc/kubernetes/admin.conf
-      dest: $HOME/.kube/config
-      remote_src: yes
-      owner: root
-
-  - name: create pod network
-    shell: |
-      export kubever=$(kubectl version | base64 | tr -d '\n')
-      kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+  roles:
+    - master
