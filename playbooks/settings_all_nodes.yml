@@ -26,18 +26,6 @@
     when: hostvars[item].ansible_host is defined
     with_items: "{{ groups.all }}"
 
-  - name: ensure net.bridge.bridge-nf-call-ip6tables is set to 1
-    sysctl:
-      name: net.bridge.bridge-nf-call-ip6tables
-      value: 1
-      state: present
-
-  - name: ensure net.bridge.bridge-nf-call-iptables is set to 1
-    sysctl:
-      name: net.bridge.bridge-nf-call-iptables
-      value: 1
-      state: present
-
   - name: Copy script mirrors.sh
     copy:
      src: scripts/mirrors.sh 
@@ -104,15 +92,16 @@
     service:
       name: kubelet
       daemon_reload: yes
+      enabled: yes
       state: restarted
-
-  - name: Starting and Enabling the required services
+  
+  - name: Restart docker
     service:
-     name: "{{ item }}"
-     state: started
-     enabled: yes
-    with_items: "{{ services }}"
-
+      name: docker
+      daemon_reload: yes
+      enabled: yes
+      state: restarted
+    
   - name: Allow Network Ports in Firewalld
     ansible.posix.firewalld:
      port: "{{ item }}"
@@ -130,3 +119,15 @@
 
   - name: Enabling Bridge Firewall Rule
     shell: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"
+  
+  - name: ensure net.bridge.bridge-nf-call-ip6tables is set to 1
+    sysctl:
+      name: net.bridge.bridge-nf-call-ip6tables
+      value: 1
+      state: present
+
+  - name: ensure net.bridge.bridge-nf-call-iptables is set to 1
+    sysctl:
+      name: net.bridge.bridge-nf-call-iptables
+      value: 1
+      state: present
