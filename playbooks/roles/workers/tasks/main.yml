@@ -1,6 +1,14 @@
 ---  
-- name: join cluster
-  shell: "{{ hostvars['master-node'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
-  args:
-    chdir: $HOME
-    creates: node_joined.txt
+- hosts: kubernetes_worker_nodes
+  become: yes
+  vars_files:
+   - env_variables
+
+- name: Copying token to worker nodes
+  copy: src={{ token_file }} dest=join_token
+
+- name: Joining worker nodes with kubernetes master
+  shell: |
+     kubeadm reset -f
+     cat join_token | tail -2 > out.sh
+     sh out.sh
