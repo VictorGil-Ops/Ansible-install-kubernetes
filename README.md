@@ -1,6 +1,6 @@
 # ansible-install-kubernetes-centos8
 
-This repository contain a playbook for a easy installation kubernetes cluster with Centos 8.
+This repository contain a playbook for kubernetes cluster easy installation based in Centos 8.
 
 For prepare virtual machines with [Vagrant](https://github.com/edib/many_vagrant_machines).
 
@@ -26,7 +26,6 @@ ssh-keygen -t rsa
 ```
 
 3. Copy the public key in ssh_prepare_remote_nodes\ssh_prepare_node.sh << PASTE PUBLIC_KEY
-
 
 4. Execute the script on kubernetes cluster
 
@@ -60,4 +59,3 @@ worker-node2 ansible_host=192.168.205.212
 ## MANAGE THE CLUSTER
 
 [Kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/)
-
