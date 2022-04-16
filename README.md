@@ -6,7 +6,7 @@ For prepare virtual machines with [Vagrant](https://github.com/edib/many_vagrant
 
 ## Preparare Ansible Control Node
 
-I use WSL or MSYS2.
+I use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) or MSYS2.
 
 1. Create ansible user
 
