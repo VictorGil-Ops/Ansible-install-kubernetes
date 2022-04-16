@@ -8,6 +8,14 @@ For prepare virtual machines with [Vagrant](https://github.com/edib/many_vagrant
 
 I use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) or MSYS2.
 
+> Intall requisite - ansible.posix
+
+```bash
+
+ansible-galaxy collection install ansible.posix
+
+```
+
 ![Image](https://github.com/VictorGil-Ops/Ansible-install-kubernetes/blob/main/image/diagram.png)
 
 1. Create ansible user
