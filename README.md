@@ -30,7 +30,8 @@ sudo passwd ansible
 2. Generate ssh key, path "~/.ssh/id_rsa.pub"
 
 ```bash
-
+su - ansible
+mkdir .ssh && cd .ssh
 ssh-keygen -t rsa
 
 ```
