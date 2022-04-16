@@ -101,6 +101,13 @@
       daemon_reload: yes
       enabled: yes
       state: restarted
+  
+  - name: Restart firewalld
+    service:
+      name: firewalld
+      daemon_reload: yes
+      enabled: yes
+      state: restarted
     
   - name: Allow Network Ports in Firewalld
     ansible.posix.firewalld:
