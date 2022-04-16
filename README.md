@@ -19,7 +19,7 @@ sudo passwd ansible
 
 ```bash
 
-ssh-keygen -t rsa`
+ssh-keygen -t rsa
 
 ```
 
