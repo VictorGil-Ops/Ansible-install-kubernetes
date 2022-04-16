@@ -2,6 +2,8 @@
 
 This repository contain a playbook for a easy installation kubernetes cluster with Centos 8.
 
+For prepare virtual machines with [Vagrant](https://github.com/edib/many_vagrant_machines).
+
 ## Preparare Ansible Control Node
 
 I use WSL or MSYS2.
@@ -54,3 +56,8 @@ worker-node2 ansible_host=192.168.205.212
     ansible-playbook setup-nodes.yml -v
 
 ```
+
+## MANAGE THE CLUSTER
+
+[Kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/)
+
