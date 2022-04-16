@@ -15,12 +15,12 @@
     command: sh /tmp/mirrors.sh 
 
   - name: Upgrade RHEL Family OS packages
-    debug:
-     var: result
-     verbosity: 2
     yum:
       name: '*'
       state: latest
+      debug:
+      var: result
+      verbosity: 2
     when: ansible_os_family == "RedHat"
 
   - name: Remove swapfile from /etc/fstab
