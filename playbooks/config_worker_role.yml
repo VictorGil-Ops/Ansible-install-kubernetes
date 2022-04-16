@@ -5,9 +5,9 @@
    - vars_file
   tasks:
     - name: Copying token to worker nodes
-      copy: src={{ join_token }} dest=join_token
+      copy: src=join_command =join_command
 
     - name: Joining worker nodes with kubernetes master
       shell: |
         kubeadm reset -f
-        cat join_token | tail -2 > out.sh
+        cat join_command | tail -2 > out.sh
