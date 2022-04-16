@@ -37,7 +37,7 @@ cat id.rsa.pub ## paste inside ssh_prepare_node.sh << PASTE PUBLIC_KEY
 
 ```
 
-3. Copy the public key in ssh_prepare_remote_nodes\ssh_prepare_node.sh << PASTE PUBLIC_KEY
+3. Copy the public key in `ssh_prepare_remote_nodes\ssh_prepare_node.sh` << PASTE PUBLIC_KEY
 
 4. Execute the script on kubernetes cluster
 
