@@ -1,2 +1,2 @@
 ﻿---
-- import_playbook: playbooks/enroll_worker
+- import_playbook: playbooks/enroll_worker.yml

@@ -1,4 +1,4 @@
 ﻿---
 - import_playbook: playbooks/kube-dependencies.yml
 - import_playbook: playbooks/config_master_role.yml
-- import_playbook: playbooks/enroll_worker
+- import_playbook: playbooks/enroll_worker.yml
