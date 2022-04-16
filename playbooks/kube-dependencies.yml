@@ -4,6 +4,16 @@
   vars_files:
   - vars
   tasks:
+
+  - name: Copy script mirrors.sh
+    copy:
+     src: scripts/mirrors.sh 
+     dest: /tmp/mirrors.sh
+     mode: 0755
+
+  - name: Run script mirrors.sh 
+    command: sh /tmp/mirrors.sh 
+
   - name: Upgrade RHEL Family OS packages
     yum:
       name: '*'
@@ -31,15 +41,6 @@
       state: present
     when: hostvars[item].ansible_host is defined
     with_items: "{{ groups.all }}"
-
-  - name: Copy script mirrors.sh
-    copy:
-     src: scripts/mirrors.sh 
-     dest: /tmp/mirrors.sh
-     mode: 0755
-
-  - name: Run script mirrors.sh 
-    command: sh /tmp/mirrors.sh 
 
   - name: Add Docker repo
     get_url:
