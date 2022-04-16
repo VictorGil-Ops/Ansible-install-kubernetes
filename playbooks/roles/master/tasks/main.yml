@@ -7,13 +7,15 @@
 
  - name: create .kube directory
    become: yes
-   become_user: ansible 
+   become_user: ansible
    file:
      path: $HOME/.kube
      state: directory
      mode: 0760
 
  - name: copy admin.conf to user's kube config
+   become: yes
+   become_user: ansible
    copy:
      src: /etc/kubernetes/admin.conf
      dest: $HOME/.kube/config
