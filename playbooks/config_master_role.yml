@@ -26,10 +26,6 @@
       remote_src: yes
       owner: root
 
-  - name: create token
-    shell: kubeadm token create --print-join-command
-    register: join_command
-
   - name: create pod network
     shell: |
       export kubever=$(kubectl version | base64 | tr -d '\n')
