@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   vars_files:
-   - inventories/group_vars/group_vars.yml
+   - vars_file
   tasks:
 
   - name: Copy script mirrors.sh
