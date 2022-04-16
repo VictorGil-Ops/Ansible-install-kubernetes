@@ -18,10 +18,12 @@
     yum:
       name: '*'
       state: latest
-      debug:
-      var: result
-      verbosity: 2
+    register: result
     when: ansible_os_family == "RedHat"
+
+  - debug:
+    register: result
+    verbosity: 3
 
   - name: Remove swapfile from /etc/fstab
     mount:
