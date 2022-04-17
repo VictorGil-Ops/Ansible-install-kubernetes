@@ -116,10 +116,13 @@
   - name: sytemctl restart and reload
     shell: |
       systemctl daemon-reload
+      sleep 3
       systemctl restart docker
+      sleep 3
       systemctl enable kubelet
-      systemctl start kubelet  
-
+      sleep 3
+      systemctl start kubelet
+      sleep 3
 
   - name: Restart firewalld
     service:
