@@ -52,7 +52,7 @@ This script create a ansible user and add the ssh key.
 ```bash
 
 [master]
-master-node ansible_host=192.168.205.212
+master-node ansible_host=192.168.205.210
 
 [workers]
 worker-node1 ansible_host=192.168.205.211
